@@ -1,0 +1,36 @@
+[Unit]
+Description=MoySklad AutoProduction Service
+After=network.target
+Documentation=https://github.com/OlegEV/moysklad-autoproduction
+
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/podman pull moysklad-autoproduction:latest
+ExecStart=/usr/bin/podman run --name moysklad-autoproduction \
+    --rm \
+    -p 8084:8084 \
+    --env-file /opt/moysklad-autoproduction/.env \
+    --security-opt no-new-privileges:true \
+    --read-only \
+    --tmpfs /tmp \
+    moysklad-autoproduction:latest
+ExecStop=/usr/bin/podman stop -t 10 moysklad-autoproduction
+Restart=always
+RestartSec=5
+TimeoutStartSec=120
+TimeoutStopSec=30
+
+# Безопасность
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/tmp
+
+# Логирование
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=moysklad-autoproduction
+
+[Install]
+WantedBy=multi-user.target

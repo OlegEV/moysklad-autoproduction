@@ -1,0 +1,25 @@
+# Podman Compose файл для запуска moysklad-autoproduction
+# Использование: podman-compose up -d
+
+services:
+  moysklad-autoproduction:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: moysklad-autoproduction
+    restart: unless-stopped
+    ports:
+      - "8084:8084"
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8084/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp

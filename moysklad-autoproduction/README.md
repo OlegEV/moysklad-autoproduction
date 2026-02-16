@@ -30,7 +30,42 @@
 
 ## Запуск
 
-### Через Docker Compose (рекомендуется)
+### Через Podman (рекомендуется)
+
+```bash
+# Создайте .env файл с токеном
+echo "MOYSKLAD_TOKEN=ваш_токен" > .env
+
+# Вариант 1: Через podman-compose
+podman-compose up -d
+
+# Вариант 2: Через скрипт
+chmod +x run-podman.sh
+./run-podman.sh build   # Сборка образа
+./run-podman.sh start   # Запуск контейнера
+./run-podman.sh logs    # Просмотр логов
+./run-podman.sh status  # Статус
+./run-podman.sh stop    # Остановка
+```
+
+### Через systemd (автозапуск с Podman)
+
+```bash
+# Копируем файлы
+sudo mkdir -p /opt/moysklad-autoproduction
+sudo cp .env /opt/moysklad-autoproduction/
+sudo cp moysklad-autoproduction.service /etc/systemd/system/
+
+# Включаем и запускаем
+sudo systemctl daemon-reload
+sudo systemctl enable moysklad-autoproduction
+sudo systemctl start moysklad-autoproduction
+
+# Просмотр логов
+sudo journalctl -u moysklad-autoproduction -f
+```
+
+### Через Docker Compose
 
 ```bash
 # Создайте .env файл с токеном
@@ -45,7 +80,7 @@ docker-compose up -d
 ```bash
 docker build -t moysklad-autoproduction .
 docker run -d \
-  -p 8080:8080 \
+  -p 8084:8084 \
   -e MOYSKLAD_TOKEN=ваш_токен \
   moysklad-autoproduction
 ```
