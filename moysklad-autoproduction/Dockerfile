@@ -33,14 +33,7 @@ RUN useradd -r -s /bin/false appuser && \
 USER appuser
 
 # Открываем порт
-EXPOSE 8080
-
-# Переменные окружения по умолчанию
-ENV SERVER_HOST=0.0.0.0
-ENV SERVER_PORT=8080
-ENV MIN_STOCK_THRESHOLD=2
-ENV STORE_NAME="Кобрино FBS"
-ENV TECH_CARD_FIELD_NAME="Техкарта"
+EXPOSE 8084
 
 # Запускаем приложение
 CMD ["./moysklad_autoproduction"]
