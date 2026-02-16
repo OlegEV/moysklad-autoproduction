@@ -32,14 +32,6 @@ pub struct EntityRef {
     pub name: Option<String>,
 }
 
-/// Склад
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Store {
-    pub meta: Meta,
-    pub id: String,
-    pub name: String,
-}
-
 /// Товар
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Product {
@@ -85,46 +77,6 @@ impl Attribute {
             Some(AttributeValue::EntityRef(e)) => e.name.clone(),
             None => None,
         }
-    }
-}
-
-/// Строка отчёта по остаткам
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct StockRow {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<Meta>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub stock: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub reserve: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub in_transit: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub code: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub article: Option<String>,
-    pub assortment_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub variant_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub stock_by_store: Option<Vec<StoreStock>>,
-}
-
-/// Остаток по конкретному складу
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct StoreStock {
-    pub meta: Meta,
-    pub stock: f64,
-    pub reserve: f64,
-    pub in_transit: f64,
-}
-
-impl StockRow {
-    /// Получить доступный остаток (stock - reserve)
-    pub fn available(&self) -> f64 {
-        (self.stock.unwrap_or(0.0)) - (self.reserve.unwrap_or(0.0))
     }
 }
 
@@ -240,50 +192,6 @@ pub struct ProcessingProducts {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessingMaterials {
     pub meta: Meta,
-}
-
-/// Продукт в тех. операции
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct ProcessingProduct {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<Meta>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub processing_plan_position: Option<PlanPosition>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub processing_plan_product: Option<EntityRef>,
-    pub assortment: EntityRef,
-    pub product: EntityRef,
-    pub quantity: f64,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub quantity_per_product: Option<f64>,
-}
-
-/// Материал в тех. операции
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct ProcessingMaterial {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<Meta>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub processing_plan_position: Option<PlanPosition>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub processing_plan_material: Option<EntityRef>,
-    pub assortment: EntityRef,
-    pub product: EntityRef,
-    pub quantity: f64,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub quantity_per_product: Option<f64>,
-}
-
-/// Позиция в тех. карте
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct PlanPosition {
-    pub meta: Meta,
-    pub id: String,
-    pub quantity: f64,
 }
 
 /// Отгрузка (Demand)
@@ -438,30 +346,6 @@ pub struct ProcessingPlanRef {
 /// Сокращённая ссылка на сущность
 #[derive(Debug, Clone, Serialize)]
 pub struct EntityRefSmall {
-    pub meta: Meta,
-}
-
-/// Входной продукт для тех. операции
-#[derive(Debug, Clone, Serialize)]
-pub struct ProcessingProductInput {
-    pub product: EntityRefSmall,
-    pub quantity: f64,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub processing_plan_position: Option<PlanPositionRef>,
-}
-
-/// Входной материал для тех. операции
-#[derive(Debug, Clone, Serialize)]
-pub struct ProcessingMaterialInput {
-    pub product: EntityRefSmall,
-    pub quantity: f64,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub processing_plan_position: Option<PlanPositionRef>,
-}
-
-/// Ссылка на позицию тех. карты
-#[derive(Debug, Clone, Serialize)]
-pub struct PlanPositionRef {
     pub meta: Meta,
 }
 

@@ -422,7 +422,7 @@ impl DemandProcessor {
         organization: &EntityRef,
         quantity: f64,
         demand: &Demand,
-        product_name: &str,
+        _product_name: &str,
     ) -> Result<Processing> {
         let request = CreateProcessingRequest {
             processing_plan: ProcessingPlanRef {

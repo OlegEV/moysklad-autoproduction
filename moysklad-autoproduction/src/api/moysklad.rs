@@ -129,20 +129,6 @@ impl MoyskladClient {
         Ok(response.rows.and_then(|mut rows| rows.pop()))
     }
 
-    /// Получить остатки по складу
-    pub async fn get_stock_by_store(&self, store_id: &str) -> Result<Vec<StockRow>> {
-        info!("Getting stock for store: {}", store_id);
-        
-        let response: ApiResponse<StockRow> = self
-            .get(&format!(
-                "/report/stock/all?filter=stockStore={}&limit=1000",
-                store_id
-            ))
-            .await?;
-        
-        Ok(response.rows.unwrap_or_default())
-    }
-
     /// Получить остаток конкретного товара на складе
     pub async fn get_product_stock(&self, product_id: &str, store_id: &str) -> Result<f64> {
         debug!("Getting stock for product {} on store {}", product_id, store_id);
@@ -190,14 +176,6 @@ impl MoyskladClient {
             .await
     }
 
-    /// Получить ассортимент по ID (для получения атрибутов)
-    pub async fn get_assortment_item(&self, assortment_id: &str) -> Result<Product> {
-        debug!("Getting assortment item: {}", assortment_id);
-        
-        self.get(&format!("/entity/assortment/{}?expand=attributes", assortment_id))
-            .await
-    }
-
     /// Найти тех. карту по названию
     pub async fn find_processing_plan_by_name(&self, name: &str) -> Result<Option<ProcessingPlan>> {
         info!("Searching for processing plan: {}", name);
@@ -210,17 +188,6 @@ impl MoyskladClient {
             .await?;
         
         Ok(response.rows.and_then(|mut rows| rows.pop()))
-    }
-
-    /// Получить тех. карту по ID
-    pub async fn get_processing_plan(&self, plan_id: &str) -> Result<ProcessingPlan> {
-        debug!("Getting processing plan: {}", plan_id);
-        
-        self.get(&format!(
-            "/entity/processingplan/{}?expand=materials,products",
-            plan_id
-        ))
-        .await
     }
 
     /// Создать тех. операцию
