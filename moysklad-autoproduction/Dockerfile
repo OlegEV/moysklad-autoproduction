@@ -3,17 +3,11 @@ FROM rust:bookworm AS builder
 
 WORKDIR /app
 
-# Сначала копируем только файлы зависимостей для кэширования
+# Копируем файлы проекта
 COPY Cargo.toml Cargo.lock ./
-
-# Создаём пустой src для кэширования зависимостей
-RUN mkdir src && \
-    echo "fn main() {}" > src/main.rs && \
-    cargo build --release && \
-    rm -rf src
-
-# Теперь копируем исходный код и собираем
 COPY src ./src
+
+# Сборка в release режиме
 RUN cargo build --release
 
 # Этап runtime - минимальный образ
@@ -30,7 +24,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Копируем бинарный файл
-COPY --from=builder /app/target/release/moysklad-autoproduction /app/
+COPY --from=builder /app/target/release/moysklad_autoproduction /app/
 
 # Создаём непривилегированного пользователя
 RUN useradd -r -s /bin/false appuser && \
@@ -49,4 +43,4 @@ ENV STORE_NAME="Кобрино FBS"
 ENV TECH_CARD_FIELD_NAME="Техкарта"
 
 # Запускаем приложение
-CMD ["./moysklad-autoproduction"]
+CMD ["./moysklad_autoproduction"]
