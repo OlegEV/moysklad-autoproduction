@@ -1,0 +1,51 @@
+[package]
+name = "moysklad_autoproduction"
+version = "0.1.0"
+edition = "2021"
+description = "Автоматическое создание тех. операций при низких остатках товара"
+authors = ["Moysklad Integration"]
+
+[dependencies]
+# Web framework
+actix-web = "4"
+
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# HTTP client for API calls
+reqwest = { version = "0.12", features = ["json", "gzip"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Environment variables
+dotenvy = "0.15"
+
+# Error handling
+anyhow = "1"
+thiserror = "1"
+
+# Date/time
+chrono = { version = "0.4", features = ["serde"] }
+
+# UUID
+uuid = { version = "1", features = ["v4", "serde"] }
+
+# Async traits
+async-trait = "0.1"
+
+# Configuration
+config = "0.14"
+
+# URL encoding
+urlencoding = "2.1"
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true

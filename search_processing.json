@@ -1,0 +1,92 @@
+[
+  {
+    "url": "https://dev.moysklad.ru/doc/api/remap/1.2",
+    "name": "МойСклад JSON API",
+    "snippet": "Представляет собой отдельный ресурс, содержащий информацию обо всех объектах сущностей данного типа. Есть не у каждой сущности. Присутствует лишь у тех ...",
+    "host_name": "dev.moysklad.ru",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://support.moysklad.ru/hc/ru/articles/16933736209425-%25D0%25A2%25D0%25B5%25D1%2585%25D0%25BE%25D0%25BF%25D0%25B5%25D1%2580%25D0%25B0%25D1%2586%25D0%25B8%25D0%25B8",
+    "name": "Техоперации - Служба поддержки МоегоСклада",
+    "snippet": "Перейдите в раздел Производство → Технологические операции. · Нажмите на кнопку +Операция. · В открывшейся карточке операции: Укажите Организацию, ... Missing: api processing",
+    "host_name": "support.moysklad.ru",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dev.moysklad.ru/doc/api/vendor/1.0",
+    "name": "Быстрый старт – API Reference - МойСклад для разработчиков",
+    "snippet": "Для каталога решений МоегоСклада можно создать решение на любом языке программирования с использованием любых фреймворков. Допустимые типы решений: серверные ...",
+    "host_name": "dev.moysklad.ru",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.itsdelta.ru/catalog/moysklad",
+    "name": "МойСклад — купить лицензионный софт в Москве  - ITSDelta",
+    "snippet": "Простая программа подходит для оптовой и розничной торговли, интернет-магазина, производства или строительства — для любого бизнеса, где есть товары, ...",
+    "host_name": "www.itsdelta.ru",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.1cbit.ru/blog/rpa-chto-eto-takoe-printsip-raboty",
+    "name": "Что такое RPA и как эта технология автоматизирует бизнес",
+    "snippet": "RPA (Robotic Process Automation) - это технология автоматизации бизнес-процессов, которая использует программных роботов для выполнения рутинных и повторяющихся ...",
+    "host_name": "www.1cbit.ru",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.instagram.com/p/DUlpbmkgsSc",
+    "name": "Как настроить систему продаж правильно Продажи  - Instagram",
+    "snippet": "3 likes, 0 comments - moysklad.ru on February 10, 2026: \"Как настроить систему продаж правильно Продажи — это не только счета и отгрузки.",
+    "host_name": "www.instagram.com",
+    "rank": 5,
+    "date": "Feb 10, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://krasnodar.hh.ru/vacancy/71401762",
+    "name": "Младший аналитик (МойСклад) В архиве с 19 ноября 2022 - HH.ru",
+    "snippet": "Вакансия Младший аналитик (МойСклад) в компании amgroup автоматизация. Зарплата: от 40000 до 65000 ₽ за месяц. Краснодар. Требуемый опыт: 1–3 года.",
+    "host_name": "krasnodar.hh.ru",
+    "rank": 6,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.slideshare.net/slideshow/olap-postgres-bi-masterypro/75223726",
+    "name": "\"OLAP с помощью Postgres (как мы строили BI)\" Фефелов Андрей",
+    "snippet": "Документ описывает архитектуру и подходы к обработке данных в BI-системе на базе PostgreSQL, применяемой крупнейшей фармацевтической группе в Ирландии.",
+    "host_name": "www.slideshare.net",
+    "rank": 7,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://xn--80ajghhoc2aj1c8b.xn--p1ai/business/projects/beer/partners/software_ru",
+    "name": "Маркировка пива и слабоалкогольных напитков - Честный знак",
+    "snippet": "Проводит все операции: создание товара в Национальном каталоге, заказ и эмиссия кодов маркировки, нанесение, агрегация, ввод в оборот, перемаркировка, вывод ...",
+    "host_name": "xn--80ajghhoc2aj1c8b.xn--p1ai",
+    "rank": 8,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dblib.rsreu.ru/data/publications/6421_index.pdf",
+    "name": "[PDF] МАТЕРИАЛЫ - Личный кабинет преподавателя",
+    "snippet": "Технологический процесс производства отливок по газифицируемым моделям, который в конце ХХ века получил широкое применение в про- мышленно развитых странах ...",
+    "host_name": "dblib.rsreu.ru",
+    "rank": 9,
+    "date": "",
+    "favicon": ""
+  }
+]

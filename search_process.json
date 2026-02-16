@@ -1,0 +1,65 @@
+[
+  {
+    "url": "https://dev.moysklad.ru",
+    "name": "МойСклад для разработчиков: описание API и SDK",
+    "snippet": "Создавайте свои бизнес-процессы — новые документы, заполняйте нужные поля, меняйте статусы в зависимости от различных условий. Наш API позволяет реализовать любые сценарии.",
+    "host_name": "dev.moysklad.ru",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/wmakeev/moysklad",
+    "name": "GitHub - wmakeev/moysklad: Библиотека для работы с API",
+    "snippet": "See full list on github.com",
+    "host_name": "github.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dev.moysklad.ru/doc/api/remap/1.2",
+    "name": "МойСклад JSON API - MoySklad",
+    "snippet": "Для того чтобы успешно взаимодействовать с JSON API онлайн-сервиса МойСклад, необходимо аутентифицироваться в системе. МойСклад поддерживает аутентификацию по протоколу Basic Auth и с использованием токена доступа.",
+    "host_name": "dev.moysklad.ru",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://docs.despi.ru/rbs-moyskladstocks",
+    "name": "МойСклад: Синхронизация товаров по API | Документация despi.ru",
+    "snippet": "Модуль импортирует товары, остатки, цены из сервиса \"МойСклад\" на сайт \"1С-Битрикс\". Работает на JSON API 1.2. Модуль не меняет товары в МойСклад. Он только импортирует данные из МойСклад в 1С-Битрикс. Основная функция модуля - это массовый импорт товаров / цен / остатков на сайт.",
+    "host_name": "docs.despi.ru",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://forum.infostart.ru/forum9/topic319622",
+    "name": "Запрос по API к МойСклад - Форум.Инфостарт",
+    "snippet": "Столкнулся с такой задачей, но пока-что ничего не понимаю с HTTP-запросами в 1с. Понимаю как их обрабатывать (ответ), но не понимаю, как отправить запрос. 1. Получить токен https://dev.moysklad.ru/doc/api/remap/1.2/#mojsklad-json-api. 2.",
+    "host_name": "forum.infostart.ru",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://usota.ru/mojsklad-obmen-po-api-s-pomoshhyu-python",
+    "name": "МойСклад — обмен по API с помощью Python",
+    "snippet": "1) Создаём асинхронную задачу. Для этого в url передадим параметр async=true. Параметры limit и offset нам не нужны. response = requests.get(url=url, headers=headers) print(response.headers) Результатом запроса будет созданная задача, а в заголовках два атрибута: Location – URL результата выполнения Асинхронной задачи.",
+    "host_name": "usota.ru",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://qna.habr.com/q/1177536",
+    "name": "Как корректно сформировать запрос к API мой склад по",
+    "snippet": "Получить ассортимент в мойсклад можно с использованием параметров фильтрации stockStore. Из документации: stockStore (string) параметр для фильтрации по нескольким складам. Можно использовать операторы = и !=. Значение параметра - ссылка на склад, который должен быть учтен в выборке или исключен из нее. Можно передать несколько значений.",
+    "host_name": "qna.habr.com",
+    "rank": 6,
+    "date": "",
+    "favicon": ""
+  }
+]

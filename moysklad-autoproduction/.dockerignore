@@ -1,0 +1,25 @@
+# Build artifacts
+/target/
+
+# Git
+/.git/
+/.gitignore
+
+# IDE
+/.idea/
+/.vscode/
+
+# Documentation
+*.md
+!README.md
+
+# Environment (should be passed via docker-compose)
+.env
+.env.*
+
+# Test files
+/tests/
+
+# Other
+.dockerignore
+docker-compose.yml

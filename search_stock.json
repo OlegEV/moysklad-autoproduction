@@ -1,0 +1,92 @@
+[
+  {
+    "url": "https://support.moysklad.ru/hc/ru/articles/219386497-%D0%A0%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D0%BE%D1%82%D1%87%D0%B5%D1%82-%D0%9E%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8-%D0%BF%D0%BE-%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D0%B0%D0%BC-%D0%BF%D0%BE-%D1%81%D0%B5%D1%80%D0%B8%D1%8F%D0%BC",
+    "name": "Расширенный отчет Остатки по товарам/по сериям",
+    "snippet": "Подключите шаблон для отчета Остатки по товарам (Товары - Остатки). Файлы для скачивания. report-Stock расширенный new.xls. 30 КБ Download. Missing: API | Show results with: API",
+    "host_name": "support.moysklad.ru",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/evgeek/moysklad/issues/24",
+    "name": "[q] А есть вариант получения остатков именно по складу? #24",
+    "snippet": "Здравствуйте! Кажется, вам нужен отчёт Остатки по складам. Перебрать весь ассортимент с запросом остатков по каждому можно так: $ms = new ...",
+    "host_name": "github.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://ru.stackoverflow.com/questions/977066/%D0%95%D1%81%D1%82%D1%8C-%D0%BB%D0%B8-%D0%B2%D0%BE%D0%B7%D0%BC%D0%BE%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C-%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D1%8E-%D0%B4%D0%BB%D1%8F-%D0%B2%D1%81%D0%B5%D1%85-%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D0%BE%D0%B2-%D0%B2-%D0%BE%D0%B4%D0%BD%D0%BE%D0%BC-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B5-report",
+    "name": "Есть ли возможность получить информацию для всех товаров в",
+    "snippet": "К сожалению, одновременно получить остатки и расширенное представление товаров нельзя. Работа с expand описана в инструкции. Как выгрузить остатки товаров по складам и резервы Как получить остатки по складам для комплекта через API More results from ru.stackoverflow.com",
+    "host_name": "ru.stackoverflow.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dev.moysklad.ru/doc/api/remap/1.2",
+    "name": "МойСклад JSON API",
+    "snippet": "Для того чтобы успешно взаимодействовать с JSON API онлайн-сервиса МойСклад, необходимо аутентифицироваться в системе. МойСклад поддерживает аутентификацию ...",
+    "host_name": "dev.moysklad.ru",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://gitverse.ru/arcsub/go-moysklad",
+    "name": "go-moysklad - SDK для МойСклад JSON API v1.2 - GitVerse",
+    "snippet": "Тип остатка. stockType=val. Используется в отчёте \"Остатки\". Пример: params.WithStockType(moysklad.StockDefault). Интервал, с которым будет построен отчет.",
+    "host_name": "gitverse.ru",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=wJpAf9bD1wg",
+    "name": "МойСклад. Маркетплейс и JSON API 1.2 - YouTube",
+    "snippet": "... данные в режиме реального времени; — Новый JSON API 1.2 ... Report. Comments. 4. Add a comment... 1:02:08 · Go to channel varlamov ... Missing: остатки товаров stock",
+    "host_name": "www.youtube.com",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://support.moysklad.ru/hc/ru/articles/218938658-%D0%A0%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D0%BE%D1%82%D1%87%D0%B5%D1%82-%D0%9E%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8-%D0%BF%D0%BE-%D1%8F%D1%87%D0%B5%D0%B9%D0%BA%D0%B0%D0%BC",
+    "name": "Расширенный отчет Остатки по ячейкам",
+    "snippet": "Подключите шаблон для отчета Остатки по ячейкам (Товары - Остатки). Файлы для скачивания. report-StockSplitBySlots расширенный.xls. 30 КБ ... Missing: API stock",
+    "host_name": "support.moysklad.ru",
+    "rank": 6,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://jsr.io/@moysklad/moysklad-ts/doc/~/StockAllCurrentRow",
+    "name": "StockAllCurrentRow - @moysklad/moysklad-ts - JSR",
+    "snippet": "OverviewDocsFiles · Versions58Dependencies1Dependents0Score.",
+    "host_name": "jsr.io",
+    "rank": 7,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://api.mista.ru/topic/860474",
+    "name": "Кто-нибудь знает, в \"Мой склад\" можно писать скрипты выгрузки",
+    "snippet": "Поставщику нужно из Мой склад выгружать в 1С Покупателя по Rest API остатки товаров. Вот кто знает, в Мой склад можно написать свои скрипты выгрузки?",
+    "host_name": "api.mista.ru",
+    "rank": 8,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://apinita.ru/solutions/spisanie-ostatkov-v-mojsklad-iz-rubitime",
+    "name": "Списание остатков в МойСклад из Rubitime - APInita",
+    "snippet": "Теперь, чтобы создать в системе МойСклад списание товаров, отправим HTTP-запрос на URL: https://api.moysklad.ru/api/remap/1.2/entity/loss методом POST, тип ( ...",
+    "host_name": "apinita.ru",
+    "rank": 9,
+    "date": "",
+    "favicon": ""
+  }
+]
