@@ -1,14 +1,17 @@
 # Podman Compose file for running moysklad-autoproduction from GitHub Container Registry
 # Usage: podman-compose up -d
 #
-# Environment variables:
+# Variables are read from .env file:
 #   GITHUB_USER   - GitHub username (default: olegev)
 #   IMAGE_VERSION - Image version/tag (default: latest)
 #   SERVER_PORT   - Server port (default: 8084)
+#   MOYSKLAD_TOKEN - Moysklad API token (required)
 #
-# Example:
-#   GITHUB_USER=olegev podman-compose up -d
-#   IMAGE_VERSION=0.0.1 podman-compose up -d
+# Example .env file:
+#   GITHUB_USER=olegev
+#   IMAGE_VERSION=latest
+#   SERVER_PORT=8084
+#   MOYSKLAD_TOKEN=your_token_here
 
 services:
   moysklad-autoproduction:

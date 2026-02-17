@@ -34,11 +34,27 @@ check_env() {
     if [ ! -f .env ]; then
         log_error ".env file not found!"
         log_info "Create .env file with the following variables:"
+        echo "  GITHUB_USER=olegev"
+        echo "  IMAGE_VERSION=latest"
+        echo "  SERVER_PORT=8084"
         echo "  MOYSKLAD_TOKEN=your_token"
         echo "  MOYSKLAD_BASE_URL=https://api.moysklad.ru/api/remap/1.2"
-        echo "  SERVER_PORT=8084"
-        echo "  STOCK_THRESHOLD=10"
         exit 1
+    fi
+}
+
+# Load environment variables from .env
+load_env() {
+    if [ -f .env ]; then
+        # Export variables from .env file
+        set -a
+        source .env
+        set +a
+        
+        # Override with environment variables if set
+        GITHUB_USER="${GITHUB_USER:-olegev}"
+        VERSION="${IMAGE_VERSION:-latest}"
+        PORT="${SERVER_PORT:-8084}"
     fi
 }
 
@@ -49,8 +65,46 @@ get_full_image_name() {
     echo "${REGISTRY}/${user}/${image}"
 }
 
+# Login to GitHub Container Registry
+login() {
+    log_info "Login to GitHub Container Registry..."
+    log_info "You need a GitHub Personal Access Token (PAT) with read:packages scope"
+    log_info "Create token at: https://github.com/settings/tokens"
+    echo ""
+    
+    # Check if already logged in
+    if podman login --get-login ${REGISTRY} 2>/dev/null; then
+        log_info "Already logged in to ${REGISTRY}"
+        return 0
+    fi
+    
+    # Prompt for token
+    echo -n "Enter GitHub PAT for ${GITHUB_USER}: "
+    read -s TOKEN
+    echo ""
+    
+    echo "$TOKEN" | podman login ${REGISTRY} -u "${GITHUB_USER}" --password-stdin
+    
+    if [ $? -eq 0 ]; then
+        log_info "Successfully logged in to ${REGISTRY}"
+    else
+        log_error "Failed to login to ${REGISTRY}"
+        exit 1
+    fi
+}
+
+# Logout from GitHub Container Registry
+logout() {
+    log_info "Logging out from ${REGISTRY}..."
+    podman logout ${REGISTRY} 2>/dev/null || true
+    log_info "Logged out"
+}
+
 # Pull image from registry
 pull() {
+    load_env
+    login
+    
     local FULL_IMAGE=$(get_full_image_name)
     log_info "Pulling image ${FULL_IMAGE}:${VERSION}..."
     podman pull ${FULL_IMAGE}:${VERSION}
@@ -72,6 +126,7 @@ stop() {
 # Start container
 start() {
     check_env
+    load_env
     
     local FULL_IMAGE=$(get_full_image_name)
     
@@ -104,8 +159,7 @@ restart() {
 
 # Update image and restart
 update() {
-    local FULL_IMAGE=$(get_full_image_name)
-    log_info "Updating to version ${VERSION}..."
+    load_env
     pull
     stop
     start
@@ -140,9 +194,11 @@ cleanup() {
 
 # Help
 help() {
-    echo "Usage: $0 {pull|start|stop|restart|update|logs|status|cleanup|help}"
+    echo "Usage: $0 {login|logout|pull|start|stop|restart|update|logs|status|cleanup|help}"
     echo ""
     echo "Commands:"
+    echo "  login   - Login to GitHub Container Registry"
+    echo "  logout  - Logout from GitHub Container Registry"
     echo "  pull    - Pull image from GitHub Container Registry"
     echo "  start   - Start container"
     echo "  stop    - Stop container"
@@ -153,19 +209,26 @@ help() {
     echo "  cleanup - Remove unused images"
     echo "  help    - This help"
     echo ""
-    echo "Environment variables:"
+    echo "Environment variables (can be set in .env file):"
     echo "  GITHUB_USER   - GitHub username (default: olegev)"
     echo "  IMAGE_VERSION - Image version/tag (default: latest)"
     echo "  SERVER_PORT   - Server port (default: 8084)"
     echo ""
     echo "Examples:"
+    echo "  ./run-podman.sh login"
     echo "  ./run-podman.sh start"
-    echo "  GITHUB_USER=olegev ./run-podman.sh start"
     echo "  IMAGE_VERSION=0.0.1 ./run-podman.sh update"
 }
 
 # Main function
 case "$1" in
+    login)
+        load_env
+        login
+        ;;
+    logout)
+        logout
+        ;;
     pull)
         pull
         ;;

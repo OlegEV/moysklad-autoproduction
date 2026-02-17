@@ -1,39 +1,40 @@
-# Этап сборки - используем последнюю стабильную версию Rust
-FROM rust:bookworm AS builder
+# Build stage - use latest stable Rust
+FROM rust:alpine AS builder
+
+# Install build dependencies for static linking
+RUN apk add --no-cache musl-dev openssl-dev openssl-libs-static pkgconfig
 
 WORKDIR /app
 
-# Копируем файлы проекта
+# Copy project files
 COPY Cargo.toml Cargo.lock ./
 COPY src ./src
 
-# Сборка в release режиме
+# Build in release mode with static linking
 RUN cargo build --release
 
-# Этап runtime - минимальный образ
-FROM debian:bookworm-slim
+# Runtime stage - minimal Alpine image
+FROM alpine:latest
 
-# Устанавливаем необходимые библиотеки и curl для healthcheck
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+# Install runtime dependencies and curl for healthcheck
+RUN apk add --no-cache \
     ca-certificates \
-    libssl3 \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+    libgcc \
+    curl
 
 WORKDIR /app
 
-# Копируем бинарный файл
+# Copy binary file
 COPY --from=builder /app/target/release/moysklad_autoproduction /app/
 
-# Создаём непривилегированного пользователя
-RUN useradd -r -s /bin/false appuser && \
+# Create unprivileged user
+RUN adduser -D -s /bin/false appuser && \
     chown -R appuser:appuser /app
 
 USER appuser
 
-# Открываем порт
+# Expose port
 EXPOSE 8084
 
-# Запускаем приложение
+# Run application
 CMD ["./moysklad_autoproduction"]
