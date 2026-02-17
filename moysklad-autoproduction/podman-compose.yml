@@ -1,15 +1,22 @@
-# Podman Compose файл для запуска moysklad-autoproduction
-# Использование: podman-compose up -d
+# Podman Compose file for running moysklad-autoproduction from GitHub Container Registry
+# Usage: podman-compose up -d
+#
+# Environment variables:
+#   GITHUB_USER   - GitHub username (default: olegev)
+#   IMAGE_VERSION - Image version/tag (default: latest)
+#   SERVER_PORT   - Server port (default: 8084)
+#
+# Example:
+#   GITHUB_USER=olegev podman-compose up -d
+#   IMAGE_VERSION=0.0.1 podman-compose up -d
 
 services:
   moysklad-autoproduction:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/${GITHUB_USER:-olegev}/moysklad-autoproduction:${IMAGE_VERSION:-latest}
     container_name: moysklad-autoproduction
     restart: unless-stopped
     ports:
-      - "8084:8084"
+      - "${SERVER_PORT:-8084}:8084"
     env_file:
       - .env
     healthcheck:

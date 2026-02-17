@@ -48,6 +48,28 @@ chmod +x run-podman.sh
 ./run-podman.sh stop    # Остановка
 ```
 
+### Из GitHub Container Registry (без сборки)
+
+```bash
+# Создайте .env файл с токеном
+echo "MOYSKLAD_TOKEN=ваш_токен" > .env
+
+# Вариант 1: Через podman-compose
+GITHUB_USER=olegev podman-compose -f podman-compose-ghcr.yml up -d
+
+# Вариант 2: Через скрипт
+chmod +x run-podman-ghcr.sh
+GITHUB_USER=olegev ./run-podman-ghcr.sh pull   # Загрузка образа
+GITHUB_USER=olegev ./run-podman-ghcr.sh start  # Запуск
+GITHUB_USER=olegev ./run-podman-ghcr.sh update # Обновление
+GITHUB_USER=olegev ./run-podman-ghcr.sh logs   # Логи
+GITHUB_USER=olegev ./run-podman-ghcr.sh status # Статус
+GITHUB_USER=olegev ./run-podman-ghcr.sh stop   # Остановка
+
+# С указанием версии
+IMAGE_VERSION=0.0.1 GITHUB_USER=olegev ./run-podman-ghcr.sh start
+```
+
 ### Через systemd (автозапуск с Podman)
 
 ```bash
