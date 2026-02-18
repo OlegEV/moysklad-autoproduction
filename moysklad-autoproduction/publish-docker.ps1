@@ -1,10 +1,15 @@
 # Script for building and publishing Docker image to GitHub Container Registry
 # Usage: .\publish-docker.ps1 -Version "1.0.0" -GitHubUser "username"
 # Example: .\publish-docker.ps1 -Version "1.0.0" -GitHubUser "myusername"
+#
+# GitHub token can be stored in .env file:
+#   GITHUB_TOKEN=your_github_pat
+#   GITHUB_USER=your_username
 
 param(
     [string]$Version = "latest",
-    [string]$GitHubUser = ""
+    [string]$GitHubUser = "",
+    [string]$GitHubToken = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -13,7 +18,40 @@ $ErrorActionPreference = "Stop"
 $ImageName = "moysklad-autoproduction"
 $Registry = "ghcr.io"
 
-# Try to get GitHub user from git remote if not specified
+# Change to script directory
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+Set-Location $scriptDir
+
+# Load .env file if exists
+$envFile = Join-Path $scriptDir ".env"
+if (Test-Path $envFile) {
+    Write-Host "Loading configuration from .env file..." -ForegroundColor Gray
+    Get-Content $envFile | ForEach-Object {
+        $line = $_.Trim()
+        if ($line -and !$line.StartsWith("#") -and $line.Contains("=")) {
+            $parts = $line.Split("=", 2)
+            $key = $parts[0].Trim()
+            $value = $parts[1].Trim()
+            
+            # Remove surrounding quotes
+            if (($value.StartsWith('"') -and $value.EndsWith('"')) -or 
+                ($value.StartsWith("'") -and $value.EndsWith("'"))) {
+                $value = $value.Substring(1, $value.Length - 2)
+            }
+            
+            # Set environment variable if not already set
+            if (![string]::IsNullOrEmpty($value) -and [string]::IsNullOrEmpty([Environment]::GetEnvironmentVariable($key))) {
+                [Environment]::SetEnvironmentVariable($key, $value, "Process")
+            }
+        }
+    }
+}
+
+# Get GitHub user from parameters, environment, or git remote
+if ([string]::IsNullOrEmpty($GitHubUser)) {
+    $GitHubUser = [Environment]::GetEnvironmentVariable("GITHUB_USER")
+}
+
 if ([string]::IsNullOrEmpty($GitHubUser)) {
     try {
         $remoteUrl = git remote get-url origin 2>$null
@@ -28,7 +66,13 @@ if ([string]::IsNullOrEmpty($GitHubUser)) {
 if ([string]::IsNullOrEmpty($GitHubUser)) {
     Write-Host "Error: Could not determine GitHub username" -ForegroundColor Red
     Write-Host "Usage: .\publish-docker.ps1 -Version '1.0.0' -GitHubUser 'username'" -ForegroundColor Yellow
+    Write-Host "Or set GITHUB_USER in .env file" -ForegroundColor Yellow
     exit 1
+}
+
+# Get GitHub token from parameters or environment
+if ([string]::IsNullOrEmpty($GitHubToken)) {
+    $GitHubToken = [Environment]::GetEnvironmentVariable("GITHUB_TOKEN")
 }
 
 # Full image name (must be lowercase for Docker)
@@ -42,10 +86,6 @@ Write-Host "Image: ${FullImageName}" -ForegroundColor White
 Write-Host "Version: ${Version}" -ForegroundColor White
 Write-Host "==========================================" -ForegroundColor Cyan
 
-# Change to script directory
-$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-Set-Location $scriptDir
-
 # Build Docker image
 Write-Host ""
 Write-Host "[1/3] Building Docker image..." -ForegroundColor Yellow
@@ -58,16 +98,22 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host ""
 Write-Host "[2/3] Login to GitHub Container Registry..." -ForegroundColor Yellow
-Write-Host "Note: You need a GitHub PAT with write:packages scope" -ForegroundColor Gray
-Write-Host "Create token at: https://github.com/settings/tokens" -ForegroundColor Gray
-Write-Host ""
 
-# Request token
-$Token = Read-Host "Enter GitHub Personal Access Token (hidden input)" -AsSecureString
-$PlainToken = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Token))
+# Request token if not provided
+if ([string]::IsNullOrEmpty($GitHubToken)) {
+    Write-Host "Note: You need a GitHub PAT with write:packages scope" -ForegroundColor Gray
+    Write-Host "Create token at: https://github.com/settings/tokens" -ForegroundColor Gray
+    Write-Host "Or set GITHUB_TOKEN in .env file to avoid this prompt" -ForegroundColor Gray
+    Write-Host ""
+    
+    $Token = Read-Host "Enter GitHub Personal Access Token (hidden input)" -AsSecureString
+    $GitHubToken = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Token))
+} else {
+    Write-Host "Using GITHUB_TOKEN from environment/.env" -ForegroundColor Gray
+}
 
 # Login to registry
-$PlainToken | docker login $Registry -u $GitHubUser --password-stdin
+$GitHubToken | docker login $Registry -u $GitHubUser --password-stdin
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Error logging in to registry. Make sure you have a PAT with write:packages scope" -ForegroundColor Red
@@ -109,4 +155,4 @@ Write-Host "  docker run -p 8084:8084 ${FullImageName}:${Version}" -ForegroundCo
 Write-Host "==========================================" -ForegroundColor Green
 
 # Clear token from memory
-$PlainToken = $null
+$GitHubToken = $null
