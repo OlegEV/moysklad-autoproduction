@@ -130,20 +130,19 @@ cargo run --release
 2. Создайте webhook на события:
    - Тип сущности: `demand` (Отгрузка)
    - Действие: `create`, `update`
-3. URL: `http://ваш-сервер:8080/webhook`
+3. URL: `http://ваш-сервер:8084/webhook`
 
-## Пример webhook события
+## Формат webhook от МойСклад
 
-```json
-{
-  "accountId": "xxx",
-  "entityType": "demand",
-  "action": "create",
-  "content": {
-    "id": "demand-uuid-here"
-  }
-}
+МойСклад отправляет POST запрос с query параметрами:
+
 ```
+POST http://your-server:8084/webhook?id={entity_id}&type={entity_type}
+```
+
+Примеры:
+- Отгрузка: `POST /webhook?id=e74614f8-0c05-11f1-0a80-0f27004c4df2&type=Demand`
+- Приёмка: `POST /webhook?id=abc123&type=Supply`
 
 ## Логирование
 

@@ -1,0 +1,21 @@
+# Build optimizations for faster incremental compilation
+
+[target.x86_64-pc-windows-msvc]
+# Use faster linker
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]
+
+[target.x86_64-pc-windows-gnu]
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]
+
+# Enable sparse registry for faster crate downloads
+[registry]
+sparse = true
+
+# Use more parallel jobs
+[build]
+jobs = 8
+
+# Net settings for faster downloads
+[net]
+retry = 3
+git-fetch-with-cli = true

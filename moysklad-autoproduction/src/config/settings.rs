@@ -28,25 +28,31 @@ impl Settings {
     /// Загрузить настройки из переменных окружения
     pub fn from_env() -> Result<Self, String> {
         let moysklad_token = env::var("MOYSKLAD_TOKEN")
+            .map(|v| strip_quotes(&v))
             .map_err(|_| "MOYSKLAD_TOKEN is required".to_string())?;
         
         let store_name = env::var("STORE_NAME")
+            .map(|v| strip_quotes(&v))
             .unwrap_or_else(|_| "Кобрино FBS".to_string());
         
         let tech_card_field_name = env::var("TECH_CARD_FIELD_NAME")
+            .map(|v| strip_quotes(&v))
             .unwrap_or_else(|_| "Техкарта".to_string());
         
         let min_stock_threshold = env::var("MIN_STOCK_THRESHOLD")
             .ok()
+            .map(|v| strip_quotes(&v))
             .and_then(|v| v.parse().ok())
             .unwrap_or(2.0);
         
         let server_port = env::var("SERVER_PORT")
             .ok()
+            .map(|v| strip_quotes(&v))
             .and_then(|v| v.parse().ok())
             .unwrap_or(8080);
         
         let server_host = env::var("SERVER_HOST")
+            .map(|v| strip_quotes(&v))
             .unwrap_or_else(|_| "0.0.0.0".to_string());
         
         Ok(Self {
@@ -57,6 +63,21 @@ impl Settings {
             server_port,
             server_host,
         })
+    }
+}
+
+/// Remove surrounding quotes from a string value
+/// Handles both single and double quotes
+fn strip_quotes(s: &str) -> String {
+    let trimmed = s.trim();
+    
+    // Check for matching quotes at start and end
+    if (trimmed.starts_with('"') && trimmed.ends_with('"') && trimmed.len() >= 2)
+        || (trimmed.starts_with('\'') && trimmed.ends_with('\'') && trimmed.len() >= 2)
+    {
+        trimmed[1..trimmed.len()-1].to_string()
+    } else {
+        trimmed.to_string()
     }
 }
 

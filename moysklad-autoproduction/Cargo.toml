@@ -1,7 +1,7 @@
 [package]
 name = "moysklad_autoproduction"
-version = "0.1.0"
-edition = "2021"
+version = "0.0.4"
+edition = "2024"
 description = "Автоматическое создание тех. операций при низких остатках товара"
 authors = ["Moysklad Integration"]
 
@@ -45,7 +45,21 @@ config = "0.14"
 # URL encoding
 urlencoding = "2.1"
 
+# Fast dev builds - minimal optimizations for quick iteration
+[profile.dev]
+opt-level = 0          # No optimizations for fastest compile
+debug = 1              # Minimal debug info (faster than full)
+incremental = true     # Enable incremental compilation (default, but explicit)
+codegen-units = 256    # More parallelism = faster builds
+
+# Faster release builds
 [profile.release]
 opt-level = 3
-lto = true
+lto = true           # Thin LTO is faster than full LTO
 strip = true
+codegen-units = 1      # Better optimizations, slower build (OK for release)
+
+# Profile for development with some optimizations (optional)
+[profile.dev-fast]
+inherits = "dev"
+opt-level = 2          # Some optimizations, still reasonably fast to compile
