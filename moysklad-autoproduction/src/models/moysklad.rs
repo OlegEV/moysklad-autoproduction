@@ -194,9 +194,9 @@ pub struct ProcessingMaterials {
     pub meta: Meta,
 }
 
-/// Отгрузка (Demand)
+/// Заказ покупателя (CustomerOrder)
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Demand {
+pub struct CustomerOrder {
     pub meta: Meta,
     pub id: String,
     pub name: String,
@@ -209,27 +209,29 @@ pub struct Demand {
     pub status_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<EntityRef>,
-    pub store: EntityRef,
-    pub organization: EntityRef,
-    pub agent: EntityRef,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub positions: Option<DemandPositions>,
+    pub store: Option<EntityRef>,
+    pub organization: EntityRef,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub agent: Option<EntityRef>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub positions: Option<CustomerOrderPositions>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub updated: Option<String>,
 }
 
-/// Позиции отгрузки
+/// Позиции заказа покупателя
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct DemandPositions {
+pub struct CustomerOrderPositions {
     pub meta: Meta,
-    pub rows: Vec<DemandPosition>,
+    pub rows: Vec<CustomerOrderPosition>,
 }
 
-/// Позиция отгрузки
+/// Позиция заказа покупателя
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct DemandPosition {
+pub struct CustomerOrderPosition {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -261,7 +263,7 @@ pub struct WebhookEvent {
     pub entity_type: String,
     pub action: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub entity: Option<Demand>,
+    pub entity: Option<CustomerOrder>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub content: Option<WebhookContent>,
 }
@@ -270,7 +272,7 @@ pub struct WebhookEvent {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WebhookContent {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub entity: Option<Demand>,
+    pub entity: Option<CustomerOrder>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -349,15 +351,15 @@ pub struct EntityRefSmall {
     pub meta: Meta,
 }
 
-/// Результат обработки отгрузки
+/// Результат обработки заказа покупателя
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessingResult {
     pub success: bool,
     pub message: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub demand_id: Option<String>,
+    pub order_id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub demand_name: Option<String>,
+    pub order_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub processing_id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]

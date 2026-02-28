@@ -1,6 +1,6 @@
 //! Автоматическое создание тех. операций при низких остатках товара
-//! 
-//! Сервис отслеживает отгрузки со склада и автоматически создаёт
+//!
+//! Сервис отслеживает подтверждённые заказы покупателей и автоматически создаёт
 //! тех. операции для пополнения остатков через производство.
 
 use actix_web::{web, App, HttpServer};
@@ -15,7 +15,7 @@ mod processing;
 
 use config::Settings;
 use handlers::AppState;
-use processing::DemandProcessor;
+use processing::OrderProcessor;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -37,7 +37,7 @@ async fn main() -> std::io::Result<()> {
     info!("Min stock threshold: {}", settings.min_stock_threshold);
     
     // Создаём состояние приложения
-    let processor = DemandProcessor::new(settings.clone());
+    let processor = OrderProcessor::new(settings.clone());
     let app_state = Arc::new(AppState {
         settings: settings.clone(),
         processor: tokio::sync::Mutex::new(processor),
@@ -54,7 +54,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(app_state.clone()))
             .route("/health", web::get().to(handlers::health))
             .route("/webhook", web::post().to(handlers::webhook))
-            .route("/demand/{id}/process", web::post().to(handlers::process_demand))
+            .route("/order/{id}/process", web::post().to(handlers::process_order))
             .route("/config", web::get().to(handlers::get_config))
     })
     .bind((host.as_str(), port))?

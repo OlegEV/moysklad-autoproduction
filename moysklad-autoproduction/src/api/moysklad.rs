@@ -221,13 +221,13 @@ impl MoyskladClient {
         Ok(response.rows.and_then(|mut rows| rows.pop()))
     }
 
-    /// Получить отгрузку по ID
-    pub async fn get_demand(&self, demand_id: &str) -> Result<Demand> {
-        info!("Getting demand: {}", demand_id);
-        
+    /// Получить заказ покупателя по ID
+    pub async fn get_customer_order(&self, order_id: &str) -> Result<CustomerOrder> {
+        info!("Getting customer order: {}", order_id);
+
         self.get(&format!(
-            "/entity/demand/{}?expand=positions,store,organization,agent",
-            demand_id
+            "/entity/customerorder/{}?expand=positions,store,organization,agent",
+            order_id
         ))
         .await
     }
