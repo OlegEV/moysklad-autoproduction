@@ -1309,7 +1309,7 @@ dependencies = [
 
 [[package]]
 name = "moysklad_autoproduction"
-version = "0.1.0"
+version = "0.0.4"
 dependencies = [
  "actix-web",
  "anyhow",
