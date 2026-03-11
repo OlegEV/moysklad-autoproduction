@@ -199,7 +199,8 @@ impl OrderProcessor {
 
         let product_name = position.assortment.name.clone()
             .unwrap_or_else(|| "unknown".to_string());
-        let quantity = position.quantity;
+        // Одна тех. операция производит 2 единицы товара, поэтому кол-во = продажи / 2, мин. 1
+        let quantity = (position.quantity / 2.0_f64).max(1.0_f64);
 
         info!(
             "Processing position: product={}, quantity={}",
